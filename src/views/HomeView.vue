@@ -9,7 +9,9 @@ import AllTask from '../components/todos/AllTask.vue';
     </div>
     <div class="mt-3">
       <div class="flex justify-end">
-        <button class="text-white bg-sky-500 hover:bg-blue-500 rounded py-2 px-4 font-bold">&#43; Add Task</button>
+        <RouterLink to="/create">
+          <button class="text-white bg-sky-500 hover:bg-blue-500 rounded py-2 px-4 font-bold">&#43; Add Task</button>
+        </RouterLink>
       </div>
       <div class="my-3">
         <AllTask/>
