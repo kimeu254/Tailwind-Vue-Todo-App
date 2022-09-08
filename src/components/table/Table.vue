@@ -18,19 +18,6 @@
             </tbody>
         </table>
     </div>
-    <!-- Mobile View -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:hidden">
-        <div class="bg-white space-y-3 p-4 rounded-lg shadow" v-for='task in tasks' :key='task.id'>
-            <div class="flex items-center space-x-2 text-sm">
-                <div>{{ task.title }}</div>
-                <div>Date</div>
-                <div>Status</div>
-            </div>
-            <div>{{ task.description }}</div>
-            <div>Due</div>
-        </div>
-    </div>
-
 </template>
 
 <script setup>
