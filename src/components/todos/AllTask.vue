@@ -1,7 +1,7 @@
 <template>
     <div>
         <Table>
-            <tr class="bg-white" v-for='todo in tasks' :key='todo.id'>
+            <tr class="bg-white" v-for='todo in todos' :key='todo.id'>
                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">{{ todo.id }}</td>
                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">{{ todo.title }}</td>
                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">{{ todo.description }}</td>
@@ -18,12 +18,33 @@
                 </td>
             </tr>
         </Table>
-        <Mobile></Mobile>
+        <Mobile>
+            <div class="bg-white space-y-3 p-4 rounded-lg shadow" v-for='todo in todos' :key='todo.id'>
+                <div class="flex items-center space-x-2 text-sm">
+                    <div>{{ todo.title }}</div>
+                    <div>Date</div>
+                    <div>Status</div>
+                </div>
+                <div>{{ todo.description }}</div>
+                <div>Due</div>
+            </div>
+        </Mobile>
     </div>
 </template>
 
 <script setup>
 import Table from '../table/Table.vue';
 import Mobile from '../cards/Mobile.vue';
+import {useStore} from 'vuex';
+import { ref, onMounted, computed } from 'vue';
 
+const store = useStore();
+
+const todos = computed(() => {
+  return store.state.todos
+})
+
+onMounted(() => {
+  store.dispatch("fetchTodos");
+})
 </script>
