@@ -4,7 +4,7 @@
         <div>
             <h1 class="text-center text-3xl font-extrabold text-gray-900">Create New Task</h1>
         </div>
-        <form @submit.prevent="onSubmit">
+        <form @submit.prevent="onSubmit(todo.id)">
             <div class="flex flex-col form-group mb-6">
                 <label for="title" class="form-label inline-block mb-2 text-gray-700 font-medium">Title:</label>
                 <input type="name" class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-400 focus:outline-none" placeholder="Enter title" v-model.trim="todo.title" required>
@@ -43,8 +43,8 @@ export default {
         return{}
     },
     methods: {
-        onSubmit(){
-            this.$store.dispatch("editTodo", {id}).then(() => {
+        onSubmit(id){
+            this.$store.dispatch("editTodos", {id}).then(() => {
                 this.$router.push("/")
             })
         }

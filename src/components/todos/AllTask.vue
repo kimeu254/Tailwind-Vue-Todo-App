@@ -12,7 +12,7 @@
                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                     <div class="flex items-center space-x-2">
                         <input type="checkbox" class="accent-green-700 w-6 h-6">
-                        <img src="../icons/edit.svg" alt="edit-icon" class="w-6 h-6 cursor-pointer">
+                        <router-link :to="{name: 'edit', params: {id: todo.id}}"><img src="../icons/edit.svg" alt="edit-icon" class="w-6 h-6 cursor-pointer"></router-link>
                         <img src="../icons/delete.svg" alt="delete-icon" class="w-6 h-6 cursor-pointer">
                     </div>
                 </td>
