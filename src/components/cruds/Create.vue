@@ -7,17 +7,17 @@
         <form @submit.prevent="onSubmit">
             <div class="flex flex-col form-group mb-6">
                 <label for="title" class="form-label inline-block mb-2 text-gray-700 font-medium">Title:</label>
-                <input type="name" class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-400 focus:outline-none" placeholder="Enter title" v-model.trim="todo.title">
+                <input type="name" class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-400 focus:outline-none" placeholder="Enter title" v-model.trim="todo.title" required>
             </div>
             <div class="form-group mb-6">
                 <label for="description" class="form-label inline-block mb-2 text-gray-700 font-medium">Description:</label>
-                <textarea class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-400 focus:outline-none" placeholder="Write description here..." v-model="todo.description"></textarea>
+                <textarea class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-400 focus:outline-none" placeholder="Write description here..." v-model="todo.description" required></textarea>
             </div>
 
             <div class="dates">
                 <div class="form-group mb-6">
                     <label for="deadline" class="form-label inline-block mb-2 text-gray-700 font-medium">Deadline:</label><br>
-                    <input type="date" class="w-full text-gray-700 font-normal" v-model="todo.deadline">
+                    <input type="date" class="w-full text-gray-700 font-normal" v-model="todo.deadline" required>
                 </div>
 
                 <div class="form-group mb-6">
