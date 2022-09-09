@@ -1,5 +1,5 @@
 <script setup>
-import AllTask from '../components/todos/AllTask.vue';
+import TodoList from '../components/todos/TodoList.vue';
 </script>
 
 <template>
@@ -14,7 +14,7 @@ import AllTask from '../components/todos/AllTask.vue';
         </RouterLink>
       </div>
       <div class="my-3">
-        <AllTask/>
+        <TodoList/>
       </div>
     </div>
   </main>
