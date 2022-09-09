@@ -13,7 +13,7 @@
                     <div class="flex items-center space-x-2">
                         <input type="checkbox" class="accent-green-700 w-6 h-6">
                         <router-link :to="{name: 'edit', params: {id: todo.id}}"><img src="../icons/edit.svg" alt="edit-icon" class="w-6 h-6 cursor-pointer"></router-link>
-                        <img src="../icons/delete.svg" alt="delete-icon" class="w-6 h-6 cursor-pointer">
+                        <img  @click="deleteTodo(todo.id)" src="../icons/delete.svg" alt="delete-icon" class="w-6 h-6 cursor-pointer">
                     </div>
                 </td>
             </tr>
@@ -36,6 +36,7 @@
 import Table from '../table/Table.vue';
 import Mobile from '../cards/Mobile.vue';
 import {  mapState } from 'vuex';
+import Swal from 'sweetalert2';
 
 export default {
     setup() {
@@ -52,6 +53,43 @@ export default {
     },
     created() {
         this.$store.dispatch("fetchTodos" )
-    }
+    },
+    methods: {
+        deleteTodo(id){
+            this.$swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((response)=>{
+                if (response.isConfirmed){
+                    this.$store.dispatch("deleteTodos", {id})
+                    this.$swal.fire(
+                        {
+                            title: 'Deleted!',
+                            text: 'Your file has been deleted.',
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }
+                    )
+                } else if (
+                    response.dismiss === Swal.DismissReason.cancel
+                ) {
+                    this.$swal.fire({
+                        title: 'Canceled',
+                        text: 'Your imaginary file is safe :)',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            })
+        },
+    },
+    
 }
 </script>

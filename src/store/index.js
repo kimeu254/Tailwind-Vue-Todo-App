@@ -24,6 +24,9 @@ export default createStore({
         async editTodos({commit}, {id}) {
             commit('EDIT_TODO', {id})
         },
+        async deleteTodos({commit}, {id}) {
+            commit('DELETE_TODO', {id})
+        },
     },
     mutations: {
         SET_TODOS(state, todos) {
@@ -45,6 +48,18 @@ export default createStore({
                 }
             }
             localStorage.setItem("TODOS", JSON.stringify(newTodo))
+        },
+        DELETE_TODO(state, {id}) {
+            let todos = state.todos.filter(t => t.id != id)
+            state.todos = todos
+            var newTodo = JSON.parse(localStorage.getItem("TODOS"))
+            for (var i = 0; i < newTodo.length; i++ ) {
+                if(newTodo[i].id == id) {
+                    newTodo = state.todos
+                }
+            }
+            localStorage.setItem("TODOS", JSON.stringify(newTodo))
+
         },
     },
     modules: {},
