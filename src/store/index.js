@@ -7,7 +7,14 @@ export default createStore({
     state: {
         todos: JSON.parse(localStorage.getItem("TODOS")) ? JSON.parse(localStorage.getItem("TODOS")) : [],
     },
-    getters: {},
+    getters: {
+        completeTodos(state) {
+            return state.todos.filter(todo => todo.isComplete == true)
+        },
+        inCompleteTodos(state) {
+            return state.todos.filter(todo => todo.isComplete == false)
+        }
+    },
     actions: {
         async fetchTodos({commit}) {
             axios
@@ -27,6 +34,9 @@ export default createStore({
         async deleteTodos({commit}, {id}) {
             commit('DELETE_TODO', {id})
         },
+        async markComplete({commit}, {id, isComplete}) {
+            commit('MARK_COMPLETE', {id, isComplete})
+        }
     },
     mutations: {
         SET_TODOS(state, todos) {
@@ -61,6 +71,16 @@ export default createStore({
             localStorage.setItem("TODOS", JSON.stringify(newTodo))
 
         },
+        MARK_COMPLETE(state, {id, isComplete}) {
+            state.todos.find(todo => todo.id == id).isComplete = isComplete
+            var newTodo = JSON.parse(localStorage.getItem("TODOS"))
+            for (var i = 0; i < newTodo.length; i++ ) {
+                if(newTodo[i].id == id) {
+                    newTodo[i].isComplete = isComplete
+                }
+            }
+            localStorage.setItem("TODOS", JSON.stringify(newTodo))
+        }
     },
     modules: {},
 })

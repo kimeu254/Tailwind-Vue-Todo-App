@@ -2,7 +2,7 @@
     <main class="min-h-screen flex flex-col items-center justify-center bg-gray-50 space-y-10 py-12 px-4 sm:px-6 lg:px-8">
       <div class="max-w-md w-full mx-auto bg-white shadow rounded-lg p-7 space-y-6">
         <div>
-            <h1 class="text-center text-3xl font-extrabold text-gray-900">Create New Task</h1>
+            <h1 class="text-center text-3xl font-extrabold text-gray-900">Edit Task</h1>
         </div>
         <form @submit.prevent="onSubmit(todo.id)">
             <div class="flex flex-col form-group mb-6">
