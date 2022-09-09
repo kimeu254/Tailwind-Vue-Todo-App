@@ -24,14 +24,41 @@
             </tr>
         </Table>
         <Mobile>
-            <div class="bg-white space-y-3 p-4 rounded-lg shadow" v-for='todo in todos' :key='todo.id'>
-                <div class="flex items-center space-x-2 text-sm">
+            <div class="bg-white space-y-3 p-4 rounded-lg shadow" v-for='todo in todos' :key='todo.id' :class="{active : todo.isComplete}">
+                <div class="flex items-center justify-between">
                     <div>{{ todo.title }}</div>
-                    <div>Date</div>
-                    <div>Status</div>
+                    <div class="flex items-center space-x-4">
+                        <div v-if="todo.isComplete != true ">
+                            <img @click="markComplete(todo.id, todo.isComplete)" src="../../assets/img/icons8-unchecked-checkbox-16.png" alt="">
+                        </div>
+                        <div v-else>
+                            <img @click="markComplete(todo.id, todo.isComplete)" src="../../assets/img/icons8-checked-checkbox-16.png" class="">
+                        </div>
+                        <router-link :to="{name: 'edit', params: {id: todo.id}}"><img src="../icons/edit.svg" alt="edit-icon" class="w-6 h-6 cursor-pointer"></router-link>
+                        <img  @click="deleteTodo(todo.id)" src="../icons/delete.svg" alt="delete-icon" class="w-6 h-6 cursor-pointer">
+                    </div>
                 </div>
-                <div>{{ todo.description }}</div>
-                <div>Due</div>
+                <div class="text-sm text-gray-600 font-medium">{{ todo.description }}</div>
+               <div class="flex items-center justify-between">
+                    <div>
+                        <div class="text-sm text-gray-700 font-light">Added on: 
+                            <span class="font-thin ">{{todo.date_added}}</span>
+                        </div>
+                        <div v-if="todo.isComplete != true" class="text-sm text-gray-700 font-light">Due on: 
+                            <span class="font-thin ">{{todo.deadline}}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div v-if="todo.isComplete != false">
+                            <img src="../../assets/img/icons8-done-67.png" alt="complete">
+                            <span class="text-sm font-light">Complete</span>
+                        </div>
+                        <div v-else>
+                            <img src="../../assets/img/icons8-warning-64 (1).png" alt="incomplete">
+                            <span class="text-sm font-light">Incomplete</span>
+                        </div>
+                    </div>
+               </div>
             </div>
         </Mobile>
     </div>
