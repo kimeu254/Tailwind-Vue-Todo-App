@@ -5,7 +5,7 @@ const url = ('https://tychak.github.io/')
 
 export default createStore({
     state: {
-        todos: JSON.parse(localStorage.getItem("TASKS")) ? JSON.parse(localStorage.getItem("TASKS")) : [],
+        todos: JSON.parse(localStorage.getItem("TODOS")) ? JSON.parse(localStorage.getItem("TODOS")) : [],
     },
     getters: {},
     actions: {
@@ -17,12 +17,22 @@ export default createStore({
                 commit('SET_TODOS', todos)
             })
         },
+        async createTodo({commit}, todo) {
+            console.log(todo)
+            commit('NEW_TODO', todo)
+        },
     },
     mutations: {
         SET_TODOS(state, todos) {
             //state.todos = todos
-            localStorage.setItem("TASKS", JSON.stringify(state.todos))
-            state.todos = JSON.parse(localStorage.getItem("TASKS"))
+            localStorage.setItem("TODOS", JSON.stringify(state.todos))
+            state.todos = JSON.parse(localStorage.getItem("TODOS"))
+            
+        },
+        NEW_TODO(state, todo) {
+            let todos = state.todos.concat(todo)
+            localStorage.setItem("TODOS", JSON.stringify(todos))
+            state.todos = JSON.parse(localStorage.getItem("TODOS"))  
         },
     },
     modules: {},

@@ -32,19 +32,26 @@
     </div>
 </template>
 
-<script setup>
+<script>
 import Table from '../table/Table.vue';
 import Mobile from '../cards/Mobile.vue';
-import {useStore} from 'vuex';
-import { ref, onMounted, computed } from 'vue';
+import {  mapState } from 'vuex';
 
-const store = useStore();
-
-const todos = computed(() => {
-  return store.state.todos
-})
-
-onMounted(() => {
-  store.dispatch("fetchTodos");
-})
+export default {
+    setup() {
+        return {};
+    },
+    components: { Table, Mobile },
+    data() {
+        return {
+            isComplete: false,
+        }
+    },
+    computed: {
+        ...mapState(["todos"]),
+    },
+    created() {
+        this.$store.dispatch("fetchTodos" )
+    }
+}
 </script>

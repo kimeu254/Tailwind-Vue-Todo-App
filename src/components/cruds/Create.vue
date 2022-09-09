@@ -4,38 +4,30 @@
         <div>
             <h1 class="text-center text-3xl font-extrabold text-gray-900">Create New Task</h1>
         </div>
-        <form>
-            <!-- <div class="flex flex-col">
-                <label class="text-sm font-bold text-gray-600 mb-1" for="email">Title:</label>
-                <input class="border rounded-md bg-white px-3 py-2" type="text" placeholder="Enter your Title" />
-            </div>
-            <div class="flex flex-col">
-                <label class="text-sm font-bold text-gray-600 mb-1" for="email">Description</label>
-                <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your message..."></textarea>
-            </div> -->
+        <form @submit.prevent="onSubmit">
             <div class="flex flex-col form-group mb-6">
                 <label for="title" class="form-label inline-block mb-2 text-gray-700 font-medium">Title:</label>
-                <input type="text" class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-400 focus:outline-none" placeholder="Enter title" v-model="title">
+                <input type="name" class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-400 focus:outline-none" placeholder="Enter title" v-model.trim="todo.title">
             </div>
             <div class="form-group mb-6">
                 <label for="description" class="form-label inline-block mb-2 text-gray-700 font-medium">Description:</label>
-                <textarea class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-400 focus:outline-none" placeholder="Write description here..." v-model="description"></textarea>
+                <textarea class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-400 focus:outline-none" placeholder="Write description here..." v-model="todo.description"></textarea>
             </div>
 
             <div class="dates">
                 <div class="form-group mb-6">
                     <label for="deadline" class="form-label inline-block mb-2 text-gray-700 font-medium">Deadline:</label><br>
-                    <input type="date" class="w-full text-gray-700 font-normal" v-model="deadline">
+                    <input type="date" class="w-full text-gray-700 font-normal" v-model="todo.deadline">
                 </div>
 
                 <div class="form-group mb-6">
                     <label for="deadline" class="form-label inline-block mb-2 text-gray-700 font-medium">Date Completed:</label><br>
-                    <input type="date" class="w-full mt-2 text-gray-700 font-normal" v-model="date_completed">
+                    <input type="date" class="w-full mt-2 text-gray-700 font-normal" v-model="todo.date_completed">
                 </div>
             </div>
 
             <div>
-                <button class="w-full bg-sky-500 text-white rounded-md p-2">Sign in</button>
+                <button type="submit" class="w-full bg-sky-500 text-white rounded-md p-2">Save</button>
             </div>
         </form>
       </div>
@@ -43,8 +35,36 @@
     
 </template>
 
-<script setup>
+<script>
+let arrayFromStorage = JSON.parse(localStorage.getItem("TODOS"))
+let arrayLength = arrayFromStorage.length
+arrayLength = JSON.stringify(++arrayLength)
 
+export default {
+    setup(){
+        return{}
+    },
+    data(){
+        return{
+            todo : {
+                id: arrayLength,
+                title: '',
+                description: '',
+                date_added: new Date().toISOString().slice(0,10),
+                deadline: '',
+                date_completed: '',
+                isComplete: false
+            }
+        }
+    },
+    methods: {
+        onSubmit(){
+            this.$store.dispatch("createTodo", this.todo).then(() => {
+                this.$router.push("/")
+            })
+        }
+    }
+}
 </script>
 
 <style scoped>
