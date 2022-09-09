@@ -22,6 +22,12 @@ const router = createRouter({
       name: 'create',
       component: () => import('../components/cruds/Create.vue')
     },
+    {
+      path: '/edit/:id',
+      name: 'edit',
+      params: true,
+      component: () => import('../components/cruds/Edit.vue')
+    }
   ]
 })
 
